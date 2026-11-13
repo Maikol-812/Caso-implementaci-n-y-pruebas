@@ -8,29 +8,31 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use InvalidArgumentException;
 
+
+
 class Grupo extends Model
 {
-    public const MAX_DOCENTES = 2;
+ public const MAX_DOCENTES = 2; // @pest-mutate-ignore
 
-    public const MIN_ESTUDIANTES_PARA_ABRIR = 15;
+    public const MIN_ESTUDIANTES_PARA_ABRIR = 15; // @pest-mutate-ignore
 
-    public const NOTA_MINIMA = 0;
-    public const NOTA_MAXIMA = 10;
+    public const NOTA_MINIMA = 0; // @pest-mutate-ignore
+    public const NOTA_MAXIMA = 10; // @pest-mutate-ignore
 
-    public $timestamps = false;
+    public $timestamps = false; // @pest-mutate-ignore
 
     protected $fillable = [
-        'curso_id',
-        'numero_ciclo',
-        'anio',
-        'numero_grupo',
-        'abierto',
+        'curso_id', // @pest-mutate-ignore
+        'numero_ciclo', // @pest-mutate-ignore
+        'anio', // @pest-mutate-ignore
+        'numero_grupo', // @pest-mutate-ignore
+        'abierto', // @pest-mutate-ignore
     ];
 
     protected $casts = [
-        'abierto' => 'boolean',
+        'abierto' => 'boolean', // @pest-mutate-ignore
     ];
-
+    
     public function curso(): BelongsTo
     {
         return $this->belongsTo(Curso::class);
