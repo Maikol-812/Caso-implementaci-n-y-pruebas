@@ -20,14 +20,19 @@ class Docente extends Model
     ];
 
 
-    public function estudiantesAconsejados(): HasMany
+    public function estudiantes(): HasMany
     {
         return $this->hasMany(Estudiante::class, 'consejero_id');
+    }
+
+    public function estudiantesAconsejados(): HasMany
+    {
+        return $this->estudiantes();
     }
 
     
     public function grupos(): BelongsToMany
     {
-        return $this->belongsToMany(Grupo::class, 'docente_grupo');
+        return $this->belongsToMany(Grupo::class, 'grupo_docente');
     }
 }

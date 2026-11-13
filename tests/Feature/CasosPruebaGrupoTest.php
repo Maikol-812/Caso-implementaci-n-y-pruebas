@@ -66,7 +66,7 @@ class CasosPruebaGrupoTest extends TestCase
         ]);
     }
 
-    /** Matricula N estudiantes generados con factory en el grupo. */
+    
     private function matricularEstudiantes(Grupo $grupo, Docente $consejero, int $cantidad): void
     {
         $estudiantes = Estudiante::factory()
@@ -105,7 +105,7 @@ class CasosPruebaGrupoTest extends TestCase
         $this->assertSame('IF6100', $grupo->curso->sigla);
         $this->assertEquals(4, $grupo->curso->creditos);
 
-        // Poscondición: tabla grupos con 1 registro
+        
         $this->assertDatabaseCount('grupos', 1);
     }
 
@@ -117,7 +117,7 @@ class CasosPruebaGrupoTest extends TestCase
             'creditos' => 4,
         ]);
 
-        // Grupos 1 y 2 abiertos; grupo 3 cerrado (ciclo 2-2026)
+       
         foreach ([1 => true, 2 => true, 3 => false] as $numero => $abierto) {
             Grupo::create([
                 'curso_id' => $curso->id,
@@ -153,11 +153,11 @@ class CasosPruebaGrupoTest extends TestCase
         $this->assertCount(2, $docentes);
         $this->assertEqualsCanonicalizing([1001, 1002], $docentes->pluck('cod_empleado')->all());
 
-        // Desde el docente 1001, grupos() incluye el grupo 01
+        
         $this->assertTrue($docente1001->grupos->contains($grupo));
 
-        // Poscondición: 2 registros en la tabla intermedia
-        $this->assertDatabaseCount('docente_grupo', 2);
+       
+        $this->assertDatabaseCount('grupo_docente', 2);
     }
 
     public function test_cp04_un_grupo_rechaza_un_tercer_docente(): void
@@ -175,9 +175,9 @@ class CasosPruebaGrupoTest extends TestCase
         }
         $this->assertTrue($lanzada, 'Se esperaba DomainException al asignar un tercer docente.');
 
-        // Poscondiciones: sigue con 2 docentes y 1003 no aparece en la tabla intermedia
+        
         $this->assertCount(2, $grupo->fresh()->docentes);
-        $this->assertDatabaseMissing('docente_grupo', ['docente_id' => $docente1003->id]);
+        $this->assertDatabaseMissing('grupo_docente', ['docente_id' => $docente1003->id]);
     }
 
     public function test_cp05_un_grupo_con_14_estudiantes_no_puede_abrirse(): void
@@ -197,7 +197,7 @@ class CasosPruebaGrupoTest extends TestCase
         }
         $this->assertTrue($lanzada, 'Se esperaba DomainException al abrir con 14 estudiantes.');
 
-        // Poscondición: en la base de datos el grupo sigue cerrado
+       
         $this->assertFalse($grupo->fresh()->abierto);
         $this->assertDatabaseHas('grupos', ['id' => $grupo->id, 'abierto' => false]);
     }
@@ -212,9 +212,9 @@ class CasosPruebaGrupoTest extends TestCase
 
         $this->assertTrue($grupo->puedeAbrirse());
 
-        $grupo->abrir(); // no debe lanzar excepción
+        $grupo->abrir(); 
 
-        // Poscondición: recargado con fresh(), el grupo queda abierto
+        
         $this->assertTrue($grupo->fresh()->abierto);
         $this->assertDatabaseHas('grupos', ['id' => $grupo->id, 'abierto' => true]);
     }

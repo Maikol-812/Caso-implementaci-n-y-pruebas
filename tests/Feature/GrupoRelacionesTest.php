@@ -38,8 +38,8 @@ class GrupoRelacionesTest extends TestCase
 
         $grupo->delete();
 
-        $this->assertDatabaseCount('estudiante_matriculado', 0);
-        $this->assertDatabaseCount('docente_grupo', 0);
+        $this->assertDatabaseCount('estudiantes_matriculados', 0);
+        $this->assertDatabaseCount('grupo_docente', 0);
         $this->assertDatabaseCount('estudiantes', 1);
         $this->assertDatabaseCount('docentes', 1);
     }

@@ -38,13 +38,13 @@ class Grupo extends Model
 
     public function docentes(): BelongsToMany
     {
-        return $this->belongsToMany(Docente::class, 'docente_grupo');
+        return $this->belongsToMany(Docente::class, 'grupo_docente');
     }
 
     /** Estudiantes matriculados (mínimo 15), cada uno con su nota. */
     public function estudiantes(): BelongsToMany
     {
-        return $this->belongsToMany(Estudiante::class, 'estudiante_matriculado')
+        return $this->belongsToMany(Estudiante::class, 'estudiantes_matriculados')
             ->using(EstudianteMatriculado::class)
             ->withPivot('nota');
     }
